@@ -176,7 +176,8 @@
                 return {
                     x: item_index,
                     y: node.index,
-                    z: 0
+                    z: 0,
+                    w: '',
                 };
             });
         });
@@ -184,9 +185,13 @@
         // Fill matrix with data from links and count how many times each item appears
         data.links.forEach(function(link) {
             matrix[link.source][link.target].z += link.value;
-            matrix[link.target][link.source].z += link.value;
+            // matrix[link.target][link.source].z += link.value;
             nodes[link.source].count += link.value;
             nodes[link.target].count += link.value;
+            matrix[link.target][link.source].w += link.keywords;
+            nodes[link.source].keywords += link.keywords;
+            nodes[link.target].keywords += link.keywords;
+            // matrix[link.source][link.target].w += link.keywords;
         });
 
         // Draw each row (translating the y coordinate)
@@ -291,7 +296,7 @@
             tooltip.transition().duration(200).style("opacity", .9);
             tooltip.html(capitalize_Words(nodes[p.y].name) + " [" + intToGroup(nodes[p.y].group) + "]</br>" +
                     capitalize_Words(nodes[p.x].name) + " [" + intToGroup(nodes[p.x].group) + "]</br>" +
-                    p.z + " related topics")
+                    p.z + " related topic(s)" + "</br>" + 'Keywords: ' + p.w)
                 .style("left", (d3.event.pageX + 30) + "px")
                 .style("top", (d3.event.pageY - 50) + "px");
 
@@ -306,40 +311,40 @@
     /* utils */ 
         
         var groupToInt = function(area) {
-        if(area == "Department of Orthodontics"){
+        if(area == "Learning, Leadership and Change"){
             return 1;
-        }else if (area == "Learning, Leadership and Change"){
+        }else if (area == "Educational and School Psychology"){
             return 2;
-        }else if (area == "Pharmaceutical and Chemical Sciences"){
-            return 3;
-        }else if (area == "Dentistry"){
-            return 4;
         }else if (area == "Educational Administration and Leadership"){
+            return 3;
+        }else if (area == "Education"){
+            return 4;
+        }else if (area == "Music Education"){
             return 5;
-        }else if (area == "Sport Sciences"){
+        }else if (area == "Benerd School of Education"){
             return 6;
         }
-        else if (area == "Health, Exercise, and Sport Sciences"){
+        else if (area == "Music Therapy"){
             return 7;
         }
     };
 
     var intToGroup = function(area) {
         if(area == 1){
-            return "Department of Orthodontics";
-        }else if (area == 2){
             return "Learning, Leadership and Change";
+        }else if (area == 2){
+            return "Educational and School Psychology";
         }else if (area == 3){
-            return "Pharmaceutical and Chemical Sciences";
-        }else if (area == 4){
-            return "Dentistry";
-        }else if (area == 5){
             return "Educational Administration and Leadership";
+        }else if (area == 4){
+            return "Education";
+        }else if (area == 5){
+            return "Music Education";
         }else if (area == 6){
-            return "Sport Sciences";
+            return "Benerd School of Education";
         }
         else if (area == 7){
-            return "Health, Exercise, and Sport Sciences";
+            return "Music Therapy";
         }
     };
 
