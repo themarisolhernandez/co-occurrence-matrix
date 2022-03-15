@@ -4,6 +4,6 @@ Sometimes we think we find the holy grail, that one piece of literature that per
 
 There has to be another way, a more efficient, appealing, user-friendly solution.
 
-Introducing the similarity matrix. I went to work and developed a matrix diagram that visualizes overlapping topics in a sample of dissertations from my University. Each colored cell represents two published works and their similiarities; the darker the color, the greater the similarity.
+Introducing the co-occurrence matrix. I went to work and developed a matrix diagram that visualizes overlapping topics in a sample of dissertations from my University. Each colored cell represents two published works and their overlapping topics; the darker the color, the greater the similarity.
 
 In doing so, I had two main jobs: **get the data** and **build the d3 visualization**.
